@@ -41,8 +41,14 @@ export const App: React.FC = () => {
     );
   }
 
+  const handleLogin = (token: string, user: User) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
+  };
+
   if (!user) {
-    return <LoginPage />;
+    return <LoginPage onLogin={handleLogin} />;
   }
 
   return (
