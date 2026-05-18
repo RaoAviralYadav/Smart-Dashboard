@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: smart-leads-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - smart-leads-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smart-leads-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://root:password123@mongodb:27017/smart-leads?authSource=admin
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - NODE_ENV=production
+      - PORT=5000
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - mongodb
+    networks:
+      - smart-leads-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smart-leads-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+    networks:
+      - smart-leads-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  smart-leads-network:
+    driver: bridge
