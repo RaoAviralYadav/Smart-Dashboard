@@ -23,19 +23,31 @@ A professional, production-ready Lead Management System built with the MERN stac
 
 ### Frontend
 - React 18.2.0
+- React DOM 18.2.0
 - TypeScript 5.2.2
 - Vite 5.0.0
 - TailwindCSS 3.3.0
-- Axios for API calls
-- Lucide React for icons
+- Axios 1.5.0
+- Lucide React 0.263.1
+- PostCSS 8.4.31
+- Autoprefixer 10.4.16
+- @vitejs/plugin-react 4.1.0
+- ESLint (frontend lint script)
 
 ### Backend
 - Node.js + Express.js
 - TypeScript 5.2.2
-- MongoDB + Mongoose
-- JWT (jsonwebtoken)
-- bcryptjs for password hashing
-- Express Validator for request validation
+- tsx 3.14.0
+- MongoDB + Mongoose 7.6.3
+- JWT (jsonwebtoken 9.0.3)
+- bcryptjs 2.4.3
+- express-validator 7.0.0
+- cors 2.8.5
+- dotenv 16.3.1
+- papaparse 5.4.1
+- ESLint 8.51.0
+- @typescript-eslint/parser 6.7.5
+- @typescript-eslint/eslint-plugin 6.7.5
 
 ### DevOps
 - Docker & Docker Compose
@@ -46,6 +58,13 @@ A professional, production-ready Lead Management System built with the MERN stac
 ```
 smart-leads-dashboard/
 ├── backend/
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── node_modules/
+│   ├── package-lock.json
+│   ├── package.json
 │   ├── src/
 │   │   ├── controllers/
 │   │   │   ├── auth.controller.ts      # Authentication logic
@@ -55,39 +74,42 @@ smart-leads-dashboard/
 │   │   │   └── Lead.ts                 # Lead schema
 │   │   ├── routes/
 │   │   │   ├── auth.routes.ts          # Auth endpoints
-│   │   │   └── lead.routes.ts          # Lead endpoints
+│   │   │   │   └── lead.routes.ts       # Lead endpoints
 │   │   ├── middleware/
 │   │   │   ├── auth.ts                 # JWT authentication & authorization
 │   │   │   └── errorHandler.ts         # Global error handler
 │   │   └── server.ts                   # Main server file
-│   ├── package.json
 │   ├── tsconfig.json
-│   ├── .env.example
-│   └── Dockerfile
 │
 ├── frontend/
+│   ├── .env
+│   ├── .gitignore
+│   ├── Dockerfile
+│   ├── index.html                      # HTML template
+│   ├── nginx.conf                      # Nginx configuration
+│   ├── node_modules/
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── public/
+│   │                                   
 │   ├── src/
+│   │   ├── App.tsx                     # Main app component with routing
+│   │   ├── main.tsx                    # React entry point
+│   │   ├── index.css                   # Global styles
+│   │   ├── vite-env.d.ts               # Vite environment types
 │   │   ├── pages/
 │   │   │   ├── LoginPage.tsx           # Auth page with register/login
 │   │   │   └── DashboardPage.tsx       # Main dashboard with leads
 │   │   ├── services/
 │   │   │   └── api.ts                  # API calls with axios
-│   │   ├── App.tsx                     # Main app component with routing
-│   │   ├── main.tsx                    # React entry point
-│   │   └── index.css                   # Global styles
-│   ├── public/
-│   │   └── index.html                  # HTML template
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── vite.config.ts
 │   ├── tailwind.config.ts
-│   ├── postcss.config.js
-│   ├── .env.example
-│   └── Dockerfile
+│   ├── tsconfig.json
+│   └── vite.config.ts
 │
 ├── docker-compose.yml                  # Docker Compose configuration
-├── nginx.conf                          # Nginx configuration
-└── README.md                           # This file
+├── ,gitignore                          # for root
+└── README.md                           
 
 ## Setup Instructions
 
@@ -140,9 +162,7 @@ cd ../frontend
 npm install
 
 # Create .env file
-cp .env.example .env
-
-# Update .env if needed
+# If frontend/.env.example is not available, create frontend/.env manually with:
 # VITE_API_URL=http://localhost:5000/api
 
 # Run development server
